@@ -146,21 +146,3 @@ def get_recipe(
 
     return recipe_to_dict(meal)
 
-# Endpoint 5: Delete Creamy Chicken Pasta
-@app.delete("/meals/creamy-chicken-pasta")
-def delete_creamy_pasta(db: Session = Depends(get_db)):
-    meal = db.query(Recipe).filter(
-        Recipe.name == "Creamy Chicken Pasta"
-    ).first()
-
-    if not meal:
-        raise HTTPException(
-            status_code=404,
-            detail="Creamy Chicken Pasta not found"
-        )
-
-    db.delete(meal)
-    db.commit()
-
-    return {"message": "Creamy Chicken Pasta deleted successfully"}
-
