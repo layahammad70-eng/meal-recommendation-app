@@ -1,15 +1,31 @@
 
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-# Local SQLite database
-DATABASE_URL = "sqlite:///./meals.db"
-
-# Connect to the database
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False}
+# Use Neon on Render, SQLite on your laptop
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "sqlite:///./meals.db"
 )
+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgres://", "postgresql://", 1
+    )
+
+# Create database connection
+if DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"check_same_thread": False}
+    )
+else:
+    engine = create_engine(
+        DATABASE_URL,
+        pool_pre_ping=True
+    )
 
 # Create database sessions
 SessionLocal = sessionmaker(
@@ -18,14 +34,11 @@ SessionLocal = sessionmaker(
     bind=engine
 )
 
-# Base class for database tables
 Base = declarative_base()
 
-
-# Open and close database connections safely
+# Open and close database sessions
 def get_db():
     db = SessionLocal()
-
     try:
         yield db
     finally:
