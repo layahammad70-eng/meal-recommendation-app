@@ -49,7 +49,7 @@ pictures = {
     "Omelette": "images/Omelette.jpg",
     "Tomato Pasta": "images/tomato-pasta.jpg",
     "Fried Rice": "images/fried-rice.jpg",
-    "Pancakes": "images/pancakes.jpg",
+    "Fluffy Pancakes": "images/pancakes.jpg",
     "Cheese Sandwich": "images/sandwich.jpg",
     "Chicken Pasta": "images/chicken-pasta.jpg",
     "Pizza": "images/pizza.jpg",
