@@ -6,9 +6,8 @@ import streamlit as st
 # FastAPI backend address
 API_URL = os.getenv(
     "API_URL",
-    "http://127.0.0.1:8000"
+    "https://meal-recommendation-app.onrender.com"
 )
-
 st.set_page_config(
     page_title="My Meal Kitchen",
     page_icon="🍽️"

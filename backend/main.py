@@ -3,9 +3,10 @@ from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from backend.database import get_db
+from backend.database import get_db, Base, engine
 from backend.models import Recipe
 from backend.meal_service import MealRecommendationService
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="My Meal Kitchen API",
